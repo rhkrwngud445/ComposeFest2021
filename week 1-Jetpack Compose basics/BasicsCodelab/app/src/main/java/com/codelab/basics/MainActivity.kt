@@ -58,7 +58,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Text("Hello world!")
+            MessageCard(name = "Android")
 //            BasicsCodelabTheme {
 //                MyApp()
 //            }
@@ -72,8 +72,10 @@ fun MessageCard(name : String){
 
 @Preview
 @Composable
-fun PreviewMessageCard(){
-    MessageCard("Android")
+fun DefaultPreview(){
+    BasicsCodelabTheme {
+        MessageCard("Android")
+    }
 }
 
 //@Composable
