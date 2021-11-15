@@ -70,8 +70,10 @@ data class Message(val author : String, val body : String)
 
 @Composable
 fun MessageCard(msg : Message){
-    Text(text = msg.author)
-    Text(text = msg.body)
+    Column {
+        Text(text = msg.author)
+        Text(text = msg.body)
+    }
 }
 
 @Preview
