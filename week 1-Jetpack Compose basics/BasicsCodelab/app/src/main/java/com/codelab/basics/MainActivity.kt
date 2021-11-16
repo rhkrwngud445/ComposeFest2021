@@ -54,6 +54,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.codelab.basics.data.SampleData
 import com.codelab.basics.ui.BasicsCodelabTheme
 
 class MainActivity : ComponentActivity() {
@@ -102,16 +103,20 @@ fun MessageCard(msg : Message){
 
 }
 
-@Preview(name = "Light Mode")
-@Preview(
-    uiMode = Configuration.UI_MODE_NIGHT_YES,
-    showBackground = true,
-    name = "Dark Mode"
-)
 @Composable
-fun PreviewMessageCard(){
+fun Conversation(messages : List<Message>){
+    LazyColumn{
+        items(messages){  message ->
+            MessageCard(message)
+        }
+    }
+}
+
+@Preview
+@Composable
+fun PreviewConversation(){
     BasicsCodelabTheme {
-        MessageCard(msg = Message("Colleague","Hey, take a look at Jetpack Compose, it's great!"))
+        Conversation(SampleData.conversationSample)
     }
 }
 
