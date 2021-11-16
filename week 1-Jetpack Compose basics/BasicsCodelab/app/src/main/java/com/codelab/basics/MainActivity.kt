@@ -24,13 +24,10 @@ import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Button
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
@@ -49,6 +46,7 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -72,11 +70,21 @@ data class Message(val author : String, val body : String)
 
 @Composable
 fun MessageCard(msg : Message){
-    Row {
-        Image(painter = painterResource(id = R.drawable.ic_launcher_foreground), contentDescription = "Contact profile picture")
+    // 모든 방향 패딩 8dp
+    Row(modifier = Modifier.padding(all = 8.dp)) {
+        Image(
+            painter = painterResource(id = R.drawable.ic_launcher_foreground),contentDescription = "Contact profile picture",
+            // 이미지 사이즈 40dp,원형모양
+            modifier = Modifier
+                .size(40.dp)
+                .clip(CircleShape)
+        )
+        // Column 과의 공간(마진?)
+        Spacer(modifier = Modifier.width(8.dp))
+
         Column {
             Text(text = msg.author)
-            Text(text = msg.body)
+            Spacer(modifier = Modifier.height(4.dp))
         }
     }
 
