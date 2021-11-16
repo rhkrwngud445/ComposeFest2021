@@ -79,15 +79,24 @@ fun MessageCard(msg : Message){
             modifier = Modifier
                 .size(40.dp)
                 .clip(CircleShape)
-                .border(1.5.dp,MaterialTheme.colors.secondary, CircleShape)
+                .border(1.5.dp, MaterialTheme.colors.secondary, CircleShape)
         )
         // Column 과의 공간(마진?)
         Spacer(modifier = Modifier.width(8.dp))
 
         Column {
-            Text(text = msg.author,color = MaterialTheme.colors.secondaryVariant)
+            Text(
+                text = msg.author,
+                color = MaterialTheme.colors.secondaryVariant,
+                style =  MaterialTheme.typography.subtitle2
+            )
             Spacer(modifier = Modifier.height(4.dp))
-            Text(text=msg.body)
+            androidx.compose.material.Surface() {
+                Text(text=msg.body,
+                modifier = Modifier.padding(all = 4.dp),
+                style = MaterialTheme.typography.body2)
+            }
+
         }
     }
 
