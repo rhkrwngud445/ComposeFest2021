@@ -26,6 +26,7 @@ import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -73,30 +74,40 @@ data class Message(val author : String, val body : String)
 
 @Composable
 fun MessageCard(msg : Message){
-    // 모든 방향 패딩 8dp
     Row(modifier = Modifier.padding(all = 8.dp)) {
         Image(
-            painter = painterResource(id = R.drawable.ic_launcher_foreground),contentDescription = null,
-            // 이미지 사이즈 40dp,원형모양
+            painter = painterResource(R.drawable.profile_picture),
+            contentDescription = null,
             modifier = Modifier
                 .size(40.dp)
                 .clip(CircleShape)
-                .border(1.5.dp, MaterialTheme.colors.secondary, CircleShape)
+                .border(1.5.dp, MaterialTheme.colors.secondaryVariant, CircleShape)
         )
-        // Column 과의 공간(마진?)
         Spacer(modifier = Modifier.width(8.dp))
 
-        Column {
+        var isExpanded by remember { mutableStateOf(false) }
+
+        Column(modifier = Modifier.clickable { isExpanded = !isExpanded }) {
             Text(
                 text = msg.author,
                 color = MaterialTheme.colors.secondaryVariant,
-                style =  MaterialTheme.typography.subtitle2
+                style = MaterialTheme.typography.subtitle2
             )
+
             Spacer(modifier = Modifier.height(4.dp))
-            androidx.compose.material.Surface() {
-                Text(text=msg.body,
-                modifier = Modifier.padding(all = 4.dp),
-                style = MaterialTheme.typography.body2)
+
+            Surface(
+                shape = MaterialTheme.shapes.medium,
+                elevation = 1.dp,
+            ) {
+                Text(
+                    text = msg.body,
+                    modifier = Modifier.padding(all = 4.dp),
+                    // If the message is expanded, we display all its content
+                    // otherwise we only display the first line
+                    maxLines = if (isExpanded) Int.MAX_VALUE else 1,
+                    style = MaterialTheme.typography.body2
+                )
             }
         }
     }
