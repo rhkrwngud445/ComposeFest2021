@@ -24,6 +24,7 @@ import androidx.compose.animation.animateContentSize
 import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -58,33 +59,35 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MessageCard(Message("Android","Jeytpack Compose"))
-//            BasicsCodelabTheme {
-//                MyApp()
-//            }
+            BasicsCodelabTheme() {
+                MessageCard(Message("Android","Jetpack Compose"))
+            }
         }
     }
 }
 
 data class Message(val author : String, val body : String)
 
+
 @Composable
 fun MessageCard(msg : Message){
     // 모든 방향 패딩 8dp
     Row(modifier = Modifier.padding(all = 8.dp)) {
         Image(
-            painter = painterResource(id = R.drawable.ic_launcher_foreground),contentDescription = "Contact profile picture",
+            painter = painterResource(id = R.drawable.ic_launcher_foreground),contentDescription = null,
             // 이미지 사이즈 40dp,원형모양
             modifier = Modifier
                 .size(40.dp)
                 .clip(CircleShape)
+                .border(1.5.dp,MaterialTheme.colors.secondary, CircleShape)
         )
         // Column 과의 공간(마진?)
         Spacer(modifier = Modifier.width(8.dp))
 
         Column {
-            Text(text = msg.author)
+            Text(text = msg.author,color = MaterialTheme.colors.secondaryVariant)
             Spacer(modifier = Modifier.height(4.dp))
+            Text(text=msg.body)
         }
     }
 
@@ -93,7 +96,9 @@ fun MessageCard(msg : Message){
 @Preview
 @Composable
 fun PreviewMessageCard(){
-    MessageCard(msg = Message("Colleague","Hey, take a look at Jetpack Compose, it's great!"))
+    BasicsCodelabTheme {
+        MessageCard(msg = Message("Colleague","Hey, take a look at Jetpack Compose, it's great!"))
+    }
 }
 
 //@Composable
