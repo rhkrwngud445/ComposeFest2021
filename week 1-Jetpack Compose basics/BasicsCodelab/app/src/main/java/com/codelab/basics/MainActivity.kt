@@ -16,6 +16,7 @@
 
 package com.codelab.basics
 
+import android.content.res.Configuration
 import android.content.res.Configuration.UI_MODE_NIGHT_YES
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -96,13 +97,17 @@ fun MessageCard(msg : Message){
                 modifier = Modifier.padding(all = 4.dp),
                 style = MaterialTheme.typography.body2)
             }
-
         }
     }
 
 }
 
-@Preview
+@Preview(name = "Light Mode")
+@Preview(
+    uiMode = Configuration.UI_MODE_NIGHT_YES,
+    showBackground = true,
+    name = "Dark Mode"
+)
 @Composable
 fun PreviewMessageCard(){
     BasicsCodelabTheme {
